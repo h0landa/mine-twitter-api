@@ -31,7 +31,7 @@ INSTALLED_APPS = [
     'api',
 ]
 
-AUTH_USER_MODEL = 'api.models.usuario_customizado.UsuarioCustomizado'
+AUTH_USER_MODEL = 'api.UsuarioCustomizado'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -72,19 +72,25 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv('DB_NAME', 'nome_do_banco_producao'),
-        'USER': os.getenv('DB_USER', 'usuario_producao'),
-        'PASSWORD': os.getenv('DB_PASSWORD', 'senha_producao'),
-        'HOST': os.getenv('DB_HOST', 'localhost'),
+        'NAME': os.getenv('DB_NAME', 'banco_producao_twitter'),
+        'USER': os.getenv('DB_USER', 'root'),
+        'PASSWORD': os.getenv('DB_PASSWORD', ''),
+        'HOST': os.getenv('DB_HOST', '127.0.0.1'),
         'PORT': os.getenv('DB_PORT', '3306'),
+        'OPTIONS': {
+            'sql_mode': 'STRICT_TRANS_TABLES',
+        },
     },
     'test': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv('TEST_DB_NAME', 'nome_do_banco_teste'),
-        'USER': os.getenv('TEST_DB_USER', 'usuario_teste'),
-        'PASSWORD': os.getenv('TEST_DB_PASSWORD', 'senha_teste'),
-        'HOST': os.getenv('TEST_DB_HOST', 'localhost'),
+        'NAME': os.getenv('TEST_DB_NAME', 'banco_teste_twitter'),
+        'USER': os.getenv('TEST_DB_USER', 'root'),
+        'PASSWORD': os.getenv('TEST_DB_PASSWORD', ''),
+        'HOST': os.getenv('TEST_DB_HOST', '127.0.0.1'),
         'PORT': os.getenv('TEST_DB_PORT', '3306'),
+        'OPTIONS': {
+            'sql_mode': 'STRICT_TRANS_TABLES',
+        },
     }
 }
 
