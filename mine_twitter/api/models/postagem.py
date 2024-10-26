@@ -1,10 +1,10 @@
 from django.db import models
-from mine_twitter.api.models.usuario_customizado import UsuarioCustumizado
-from dispositivo import Dispositivo
+from .usuario_customizado import UsuarioCustomizado
+from .dispositivo import Dispositivo
 
 
 class Postagem(models.Model):
-    usuario = models.ForeignKey(UsuarioCustumizado, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(UsuarioCustomizado, on_delete=models.CASCADE)
     dispositivo = models.ForeignKey(Dispositivo, on_delete=models.SET_NULL, null=True)
     data_criacao = models.DateTimeField(auto_now_add=True)
     data_edicao = models.DateTimeField(auto_now=True)

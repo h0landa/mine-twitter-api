@@ -1,5 +1,5 @@
 from django.db import models
-from postagem import Postagem
+from .postagem import Postagem
 
 
 class Midia_Postagem(models.Model):
