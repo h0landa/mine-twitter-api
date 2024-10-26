@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Dispositivo(models.Models):
+class Dispositivo(models.Model):
     nome_dispositivo = models.TextField()
 
 
