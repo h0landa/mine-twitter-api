@@ -31,7 +31,7 @@ INSTALLED_APPS = [
     'api',
 ]
 
-AUTH_USER_MODEL = 'api.UsuarioCustomizado'
+AUTH_USER_MODEL = 'api.models.usuario_customizado.UsuarioCustomizado'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

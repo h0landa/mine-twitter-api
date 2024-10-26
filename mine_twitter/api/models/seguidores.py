@@ -1,5 +1,5 @@
 from django.db import models
-from usuario_custumizado import UsuarioCustumizado
+from mine_twitter.api.models.usuario_customizado import UsuarioCustumizado
 
 class Seguidores(models.Model):
     usuario_seguidor = models.ForeignKey(UsuarioCustumizado, on_delete=models.CASCADE)
