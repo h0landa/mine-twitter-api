@@ -1,9 +1,9 @@
 from django.db import models
-from mine_twitter.api.models.usuario_customizado import UsuarioCustumizado
+from api.models import UsuarioCustomizado
 
 class Seguidores(models.Model):
-    usuario_seguidor = models.ForeignKey(UsuarioCustumizado, on_delete=models.CASCADE)
-    usuario_seguido = models.ForeignKey(UsuarioCustumizado, on_delete=models.CASCADE)
+    usuario_seguidor = models.ForeignKey(UsuarioCustomizado, on_delete=models.CASCADE, related_name='seguidor')
+    usuario_seguido = models.ForeignKey(UsuarioCustomizado, on_delete=models.CASCADE, related_name='seguindo')
     data_seguimento = models.DateTimeField(auto_now_add=True)
 
 
