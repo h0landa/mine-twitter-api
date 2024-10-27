@@ -1,3 +1,7 @@
 from django.contrib import admin
+from api.models import Dispositivo, UsuarioCustomizado, Postagem
 
-# Register your models here.
+
+admin.site.register(Dispositivo)
+admin.site.register(UsuarioCustomizado)
+admin.site.register(Postagem)
