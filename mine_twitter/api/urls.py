@@ -2,7 +2,7 @@ from django.urls import path
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from .views.views_usuario import RegistrarUsuarioView, EditarUsuarioView, AlterarSenhaView
 from .views.views_dispositivos import CriarNovoDispositivoView, EditarDispositivoView, DeletarDispositivoView
-from .views.views_postagem import CriarPostagemView, EditarPostagemView, DeletarPostagemView
+from .views.views_postagem import CriarPostagemView, EditarPostagemView, DeletarPostagemView, CurtirPostagemView
 
 
 urlpatterns = [
@@ -18,5 +18,6 @@ urlpatterns = [
 
     path('criar_postagem/', CriarPostagemView.as_view(), name='criar_postagem'),
     path('editar_postagem/<int:postagem_id>', EditarPostagemView.as_view(), name='editar_postagem'),
-    path('deletar_postagem/<int:postagem_id>', DeletarPostagemView.as_view(), name='deletar_postagem')
+    path('deletar_postagem/<int:postagem_id>', DeletarPostagemView.as_view(), name='deletar_postagem'),
+    path('curtir_postagem/', CurtirPostagemView.as_view(), name='curtir_postagem'),
 ]
