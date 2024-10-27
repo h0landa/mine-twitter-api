@@ -1,3 +1,4 @@
 from .postagem_serializer import PostagemSerializer
 from .usuario_serializer import UsuarioSerializer
 from .dispositivo_serializer import DispositivoSerializer
+from .curtida_serializer import CurtidaSerializer
