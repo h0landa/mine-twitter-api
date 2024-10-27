@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from models import Postagem, Curtida, Repostagem
+from api.models import Postagem, Curtida, Repostagem
 
 
 class PostagemSerializer(serializers.ModelSerializer):
@@ -8,12 +8,20 @@ class PostagemSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Postagem
-        fields = ['id', 'usuario', 'dispositivo', 'texto_postagem', 'quantidade_curtidas', 'quantidade_repostagens']
-
+        fields = ['id', 'usuario', 'dispositivo', 'texto_postagem',
+                   'quantidade_curtidas', 'quantidade_repostagens']
+        extra_kwargs = {
+            'usuario': {'required': False},
+        }
+        
+    def create(self, dados_validos):
+        usuario = self.context['request'].user
+        postagem = Postagem.objects.create(usuario=usuario, **dados_validos)
+        return postagem
     
-    def pegar_quantidade_curtidas(self, objeto_postagem):
+    def get_quantidade_curtidas(self, objeto_postagem):
         return Curtida.objects.filter(postagem=objeto_postagem).count()
     
     
-    def pegar_quantidade_repostagens(self, objeto_postagem):
+    def get_quantidade_repostagens(self, objeto_postagem):
         return Repostagem.objects.filter(postagem=objeto_postagem).count()
