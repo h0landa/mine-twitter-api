@@ -1,22 +1,22 @@
 from rest_framework.test import APITestCase
 from rest_framework import status
-from models.postagem import Postagem
-from mine_twitter.api.models.usuario_customizado import UsuarioCustumizado
-from models.dispositivo import Dispositivo
-from models.seguidores import Seguidores
+from api.models import Postagem
+from api.models import UsuarioCustomizado
+from api.models import Dispositivo
+from api.models import Seguidores
 
 
 class PostagemAPITest(APITestCase):
     def setUp(self):
-        self.usuario = UsuarioCustumizado.objects.create(
+        self.usuario = UsuarioCustomizado.objects.create(
             username = 'usuario_teste',
             password = 'senha_forte',
         )
-        self.usuario2 = UsuarioCustumizado.objects.create(
+        self.usuario2 = UsuarioCustomizado.objects.create(
             username = 'usuario_teste2',
             password = 'senha_forte',
         )
-        self.usuario3 = UsuarioCustumizado.objects.create(
+        self.usuario3 = UsuarioCustomizado.objects.create(
             username = 'usuario_teste3',
             password = 'senha_forte',
         )
