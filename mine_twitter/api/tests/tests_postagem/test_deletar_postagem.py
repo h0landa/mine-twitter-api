@@ -4,7 +4,7 @@ from django.urls import reverse
 from rest_framework import status
 
 
-class PostagemTests(APITestCase):
+class DeletarPostagemTests(APITestCase):
     def setUp(self):
         self.usuario = UsuarioCustomizado.objects.create_user(
             username='usuario_teste',
