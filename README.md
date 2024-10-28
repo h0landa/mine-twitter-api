@@ -28,6 +28,14 @@ Antes de começar, você precisará ter os seguintes softwares instalados:
    Execute o seguinte comando para construir a imagem Docker e iniciar os containers:
     ```bash
    docker build -t mine-twitter-api .
-2. **Realize as migrações do banco**:
+    
+2. **Ligar**:
+    ```bash
+   docker-compose up
+    
+3. **Realize as migrações do banco**:
    ```bash
    docker-compose run web python manage.py migrate
+
+## EU TENTANDO APRENDER DOCKER:
+![](https://github.com/h0landa/mine-twitter-api/blob/main/GUTS.gif)
