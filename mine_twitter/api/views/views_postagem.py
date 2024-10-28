@@ -3,19 +3,14 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.exceptions import PermissionDenied
 from api.serializers import PostagemSerializer, CurtidaSerializer
-from api.models import Postagem, Curtida, UsuarioCustomizado
+from api.models import Postagem, CurtidaPostagem, Seguidores
+from django.db.models import Q
 
 
 class CriarPostagemView(generics.CreateAPIView):
     queryset = Postagem.objects.all()
     serializer_class = PostagemSerializer
     permission_classes = [IsAuthenticated]
-
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
     
 
 class EditarPostagemView(generics.UpdateAPIView):
@@ -35,6 +30,16 @@ class EditarPostagemView(generics.UpdateAPIView):
 
     def perform_update(self, serializer):
         serializer.save()
+
+
+class VerPostagemView(generics.RetrieveAPIView):
+    serializer_class = PostagemSerializer
+    permission_classes = [permissions.AllowAny]
+    lookup_url_kwarg = 'postagem_id'
+
+    def get_queryset(self):
+        postagem_id = self.kwargs.get(self.lookup_url_kwarg)
+        return Postagem.objects.filter(id=postagem_id)
 
 
 class DeletarPostagemView(generics.DestroyAPIView):
@@ -72,7 +77,7 @@ class CurtirPostagemView(generics.CreateAPIView):
         except Postagem.DoesNotExist:
             return Response({'detail': 'Postagem não encontrada.'}, status=status.HTTP_404_NOT_FOUND)
 
-        curtida, created = Curtida.objects.get_or_create(usuario=usuario, postagem=postagem)
+        curtida, created = CurtidaPostagem.objects.get_or_create(usuario=usuario, postagem=postagem)
 
         if created:
             return Response({'detail': 'Curtida adicionada.', 'data': CurtidaSerializer(curtida).data}, status=status.HTTP_201_CREATED)
@@ -80,4 +85,14 @@ class CurtirPostagemView(generics.CreateAPIView):
             curtida.delete()
             return Response({'detail': 'Curtida removida.'}, status=status.HTTP_204_NO_CONTENT)
 
+
+class FeedPostagensView(generics.ListAPIView):
+    serializer_class = PostagemSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        usuario_atual = self.request.user
         
+        seguindo_ids = Seguidores.objects.filter(usuario_seguidor=usuario_atual).values_list('usuario_seguido', flat=True)
+
+        return Postagem.objects.filter(usuario__in=seguindo_ids).order_by('-data_criacao') 
