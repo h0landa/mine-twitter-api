@@ -1,12 +1,15 @@
 from rest_framework import serializers
 from api.models import UsuarioCustomizado
+from api.models import Seguidores
 
 class UsuarioSerializer(serializers.ModelSerializer):
+    quantidade_seguidores = serializers.SerializerMethodField()
+
     class Meta:
         model = UsuarioCustomizado
         fields = ['username', 'password', 'foto_perfil',
                 'perfil_verificado', 'foto_capa', 'bio',
-                'data_aniversario']
+                'data_aniversario', 'quantidade_seguidores']
         
         extra_kwargs = {
             'password': {'write_only': True, 'required': False},
@@ -16,12 +19,17 @@ class UsuarioSerializer(serializers.ModelSerializer):
             'foto_capa': {'required': False, 'allow_null': True},
             'data_aniversario': {'required': False, 'allow_null': True},
         }
+    
 
     def create(self, dados_validos):
         usuario = UsuarioCustomizado(**dados_validos)
         usuario.set_password(dados_validos['password'])
         usuario.save()
         return usuario
+    
+
+    def get_quantidade_seguidores(self, objeto_usuario):
+        return Seguidores.objects.filter(usuario_seguidor=objeto_usuario).count()
     
     def update(self, instance, dados_validos):
         instance.username = dados_validos.get('username', instance.username)
@@ -39,3 +47,4 @@ class UsuarioSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError({'password': 'Este campo é obrigatório.'})
 
         return attrs
+    
