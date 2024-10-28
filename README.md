@@ -22,3 +22,12 @@ Antes de começar, você precisará ter os seguintes softwares instalados:
 
 3. **Instale as dependências**:
    As dependências do projeto estão listadas no arquivo requirements.txt. Elas serão instaladas automaticamente ao construir a imagem do Docker.
+## Construindo e Executando Projeto
+
+1. **Construa a imagem Docker**:
+   Execute o seguinte comando para construir a imagem Docker e iniciar os containers:
+    ```bash
+   docker build -t mine-twitter-api .
+2. **Realize as migrações do banco**:
+   ```bash
+   docker-compose run web python manage.py migrate
