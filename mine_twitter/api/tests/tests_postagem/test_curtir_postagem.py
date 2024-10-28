@@ -41,3 +41,4 @@ class CurtirPostagensTests(APITestCase):
 
         self.assertEqual(resposta.status_code, status.HTTP_201_CREATED)
         self.assertTrue(Curtida.objects.filter(usuario=self.usuario, postagem=self.postagem).exists())
+    
