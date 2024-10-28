@@ -9,3 +9,4 @@ class SeguidoresSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'usuario_seguidor': {'required': False}
         }
+        

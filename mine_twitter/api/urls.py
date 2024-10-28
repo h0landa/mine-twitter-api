@@ -5,7 +5,7 @@ from .views.views_usuario import SeguirUsuarioView, VerPerfilUsuarioView
 from .views.views_dispositivos import CriarNovoDispositivoView, EditarDispositivoView, DeletarDispositivoView
 from .views.views_postagem import EditarPostagemView, DeletarPostagemView
 from .views.views_postagem import CurtirPostagemView
-from .views.views_postagem import CriarPostagemView, VerPostagemView, FeedPostagensView
+from .views.views_postagem import CriarPostagemView, VerPostagemView, FeedPostagensView, CriarMidiaPostagemView
 
 
 
@@ -24,6 +24,8 @@ urlpatterns = [
     path('feed_postagens', FeedPostagensView.as_view(), name='postagens'),
     path('editar_postagem/<int:postagem_id>', EditarPostagemView.as_view(), name='editar_postagem'),
     path('deletar_postagem/<int:postagem_id>', DeletarPostagemView.as_view(), name='deletar_postagem'),
+
+    path('criar_midia_postagem/', CriarMidiaPostagemView.as_view(), name='criar_midia_postagem'),
 
     path('curtir_postagem/', CurtirPostagemView.as_view(), name='curtir_postagem'),
     

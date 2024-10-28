@@ -2,9 +2,11 @@ from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.exceptions import PermissionDenied
-from api.serializers import PostagemSerializer, CurtidaSerializer
+from api.serializers import PostagemSerializer, CurtidaSerializer, MidiaPostagemSerializer
 from api.models import Postagem, CurtidaPostagem, Seguidores
 from django.db.models import Q
+from rest_framework.parsers import MultiPartParser, FormParser
+from api.models import MidiaPostagem
 
 
 class CriarPostagemView(generics.CreateAPIView):
@@ -41,6 +43,18 @@ class VerPostagemView(generics.RetrieveAPIView):
         postagem_id = self.kwargs.get(self.lookup_url_kwarg)
         return Postagem.objects.filter(id=postagem_id)
 
+class CriarMidiaPostagemView(generics.CreateAPIView):
+    queryset = MidiaPostagem.objects.all()
+    serializer_class = MidiaPostagemSerializer
+    parser_classes = (MultiPartParser, FormParser)
+    
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class DeletarPostagemView(generics.DestroyAPIView):
     queryset = Postagem.objects.all()

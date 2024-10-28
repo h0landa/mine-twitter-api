@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  web:
+    build: ./
+    command: python manage.py runserver localhost:8000
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+    environment:
+      - DJANGO_DB_HOST=db
+      - DJANGO_DB_PORT=3306
+      - DJANGO_DB_NAME=mydatabase
+      - DJANGO_DB_USER=myuser
+      - DJANGO_DB_PASSWORD=mypassword
+
+  db:
+    image: mysql:8.0
+    volumes:
+      - mysql_data:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=banco_teste_twitter
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=
+      - MYSQL_ROOT_PASSWORD=
+    ports:
+      - "3366:3306"
+
+volumes:
+  mysql_data:
