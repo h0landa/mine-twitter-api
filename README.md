@@ -19,3 +19,6 @@ Antes de começar, você precisará ter os seguintes softwares instalados:
    cd mine-twitter-api
 2. **Crie o arquivo .env**:
    Vou deixar um arquivo .env-example para facilitar
+
+3. **Instale as dependências**:
+   As dependências do projeto estão listadas no arquivo requirements.txt. Elas serão instaladas automaticamente ao construir a imagem do Docker.
